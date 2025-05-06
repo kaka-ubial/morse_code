@@ -1,13 +1,9 @@
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 public class MorseTree {
 
@@ -22,6 +18,7 @@ public class MorseTree {
 
     static class MorseBST {
         private Node root;
+        private Map<Character, String> letterToMorse = new HashMap<>();
 
         public MorseBST() {
             root = new Node(' ');
@@ -40,6 +37,7 @@ public class MorseTree {
                 }
             }
             current.letter = letter;
+            letterToMorse.put(letter, morseCode); // adiciona no mapa reverso
         }
 
         public void insertAll() {
@@ -78,6 +76,22 @@ public class MorseTree {
             return result.toString().trim();
         }
 
+
+        public String encode(String text) {
+            StringBuilder morse = new StringBuilder();
+            for (char c : text.toUpperCase().toCharArray()) {
+                if (c == ' ') {
+                    morse.append("  "); // separador de palavras (2 espaços)
+                } else if (letterToMorse.containsKey(c)) {
+                    morse.append(letterToMorse.get(c)).append(" ");
+                } else {
+                    morse.append("? ");
+                }
+            }
+            return morse.toString().trim();
+        }
+
+
         public int getHeight() {
             return getHeight(root);
         }
@@ -115,6 +129,4 @@ public class MorseTree {
             }
         }
     }
-
 }
-

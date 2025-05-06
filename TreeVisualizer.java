@@ -2,14 +2,9 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-
-
-
 
 public class TreeVisualizer extends Application {
 
@@ -26,14 +21,19 @@ public class TreeVisualizer extends Application {
         bst.drawTree(canvas);
 
         TextField input = new TextField();
-        input.setPromptText("Digite o código Morse (ex: --- ..   - ..- -.. ---)");
+        input.setPromptText("Digite o código Morse ou a letra (ex: --- ..   - ..- -.. --- ou A)");
         input.setLayoutY(canvasHeight + 10);
         input.setPrefWidth(canvasWidth);
 
         input.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                String morse = input.getText();
-                System.out.println("Decodificado: " + bst.decode(morse));
+                String inputText = input.getText().trim();
+
+                if (inputText.matches("[.\\s-]+")) {
+                    System.out.println("Decodificado (Morse → Texto): " + bst.decode(inputText));
+                } else {
+                    System.out.println("Codificado (Texto → Morse): " + bst.encode(inputText));
+                }
             }
         });
 
