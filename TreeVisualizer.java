@@ -24,6 +24,7 @@ public class TreeVisualizer extends Application {
         input.setPromptText("Digite o código Morse ou a letra (ex: --- ..   - ..- -.. --- ou A)");
         input.setLayoutY(canvasHeight + 10);
         input.setPrefWidth(canvasWidth);
+        input.setStyle("-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
 
         input.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
